@@ -3,11 +3,12 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/jfrog/jfrog-cli-core/v2/plugins/components"
 	"github.com/jfrog/jfrog-cli-core/v2/utils/coreutils"
 	"github.com/jfrog/jfrog-client-go/utils/log"
-	"os"
-	"strings"
 )
 
 func GetHelloCommand() components.Command {
@@ -43,15 +44,15 @@ func getHelloFlags() []components.Flag {
 	}
 }
 
-func getHelloEnvVar() []components.EnvVar {
-	return []components.EnvVar{
-		{
-			Name:        "HELLO_FROG_GREET_PREFIX",
-			Default:     "A new greet from your plugin template: ",
-			Description: "Adds a prefix to every greet.",
-		},
-	}
-}
+// func getHelloEnvVar() []components.EnvVar {
+// 	return []components.EnvVar{
+// 		{
+// 			Name:        "HELLO_FROG_GREET_PREFIX",
+// 			Default:     "A new greet from your plugin template: ",
+// 			Description: "Adds a prefix to every greet.",
+// 		},
+// 	}
+// }
 
 type helloConfiguration struct {
 	addressee string
