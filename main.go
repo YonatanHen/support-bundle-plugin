@@ -21,7 +21,7 @@ func getApp() components.App {
 
 func getCommands() []components.Command {
 	return []components.Command{
-		commands.GetHelloCommand()}
+		commands.UploadCommand()}
 }
 
 //  curl -i -T {filename.ext} “https://supportlogs.jfrog.com/logs/<Case-Number>/”
