@@ -15,7 +15,7 @@ func UploadCommand() components.Command {
 		Name:        "upload-support-bundle",
 		Description: "Upload a Support Bundle to JFrog Support SaaS instance.",
 		Aliases:     []string{"usb"},
-		Arguments:   getHelloArguments(),
+		Arguments:   getUploadArguments(),
 		Flags:       getHelloFlags(),
 		// EnvVars:     getHelloEnvVar(),
 		Action: func(c *components.Context) error {
@@ -24,11 +24,11 @@ func UploadCommand() components.Command {
 	}
 }
 
-func getHelloArguments() []components.Argument {
+func getUploadArguments() []components.Argument {
 	return []components.Argument{
 		{
-			Name:        "addressee",
-			Description: "The name of the person you would like to greet.",
+			Name:        "ticket number",
+			Description: "The support ticket number in JFrog portal.",
 		},
 	}
 }
@@ -65,9 +65,9 @@ func UploadCmd(c *components.Context) error {
 	conf.files = c.Arguments[1:]
 
 	// Check if ticket number is an integer
-	//TODO: change the message accordingly
+	// TODO: change the message accordingly
 	if err != nil {
-		fmt.Println("Error:", err)
+		log.Error(err)
 		return nil
 	}
 
@@ -84,27 +84,3 @@ func UploadCmd(c *components.Context) error {
 	}
 	return nil
 }
-
-// func getHelloEnvVar() []components.EnvVar {
-// 	return []components.EnvVar{
-// 		{
-// 			Name:        "HELLO_FROG_GREET_PREFIX",
-// 			Default:     "A new greet from your plugin template: ",
-// 			Description: "Adds a prefix to every greet.",
-// 		},
-// 	}
-// }
-
-// func GetHelloCommand() components.Command {
-// 	return components.Command{
-// 		Name:        "hello",
-// 		Description: "Says Hello.",
-// 		Aliases:     []string{"hi"},
-// 		Arguments:   getHelloArguments(),
-// 		Flags:       getHelloFlags(),
-// 		// EnvVars:     getHelloEnvVar(),
-// 		Action: func(c *components.Context) error {
-// 			return helloCmd(c)
-// 		},
-// 	}
-// }
