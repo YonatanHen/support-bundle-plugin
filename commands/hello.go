@@ -2,11 +2,9 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 
 	"github.com/jfrog/jfrog-cli-core/v2/plugins/components"
-	"github.com/jfrog/jfrog-cli-core/v2/utils/coreutils"
 	"github.com/jfrog/jfrog-client-go/utils/log"
 )
 
@@ -16,7 +14,7 @@ func UploadCommand() components.Command {
 		Description: "Upload a Support Bundle to JFrog Support SaaS instance.",
 		Aliases:     []string{"usb"},
 		Arguments:   getUploadArguments(),
-		Flags:       getHelloFlags(),
+		// Flags:       getHelloFlags(),
 		// EnvVars:     getHelloEnvVar(),
 		Action: func(c *components.Context) error {
 			return UploadCmd(c)
@@ -30,15 +28,9 @@ func getUploadArguments() []components.Argument {
 			Name:        "ticket number",
 			Description: "The support ticket number in JFrog portal.",
 		},
-	}
-}
-
-func getHelloFlags() []components.Flag {
-	return []components.Flag{
-		components.BoolFlag{
-			Name:         "shout",
-			Description:  "Makes output uppercase.",
-			DefaultValue: false,
+		{
+			Name:        "files",
+			Description: "paths to the files to upload",
 		},
 	}
 }
@@ -65,7 +57,6 @@ func UploadCmd(c *components.Context) error {
 	conf.files = c.Arguments[1:]
 
 	// Check if ticket number is an integer
-	// TODO: change the message accordingly
 	if err != nil {
 		log.Error(err)
 		return nil
@@ -73,14 +64,8 @@ func UploadCmd(c *components.Context) error {
 
 	conf.ticketNumber = ticketNumber
 
-	// Check if
-
 	fmt.Println("Ticket Number:", conf.ticketNumber)
 	fmt.Println("File Paths:", conf.files)
 
-	if os.Getenv(coreutils.LogLevel) == "" {
-		message := fmt.Sprintf("Now try setting the %s environment variable to %s and run the command again", coreutils.LogLevel, "DEBUG")
-		log.Info(message)
-	}
 	return nil
 }
