@@ -1,12 +1,34 @@
 package commands
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"os"
 	"strconv"
 
 	"github.com/jfrog/jfrog-cli-core/v2/plugins/components"
 	"github.com/jfrog/jfrog-client-go/utils/log"
 )
+
+func requestBodyGenerator(filePath string) (*bytes.Buffer, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		log.Error("Error opening file:", err)
+		return nil, err
+	}
+	defer file.Close()
+
+	// Create a buffer to store the file contents
+	var requestBody bytes.Buffer
+	_, err = io.Copy(&requestBody, file)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return nil, err
+	}
+
+	return &requestBody, nil
+}
 
 func UploadCommand() components.Command {
 	return components.Command{
@@ -63,6 +85,8 @@ func UploadCmd(c *components.Context) error {
 	}
 
 	conf.ticketNumber = ticketNumber
+
+	const url = "https://supportlogs.jfrog.com/logs/%s/"
 
 	fmt.Println("Ticket Number:", conf.ticketNumber)
 	fmt.Println("File Paths:", conf.files)

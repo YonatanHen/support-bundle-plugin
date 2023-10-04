@@ -1,22 +1,12 @@
 package commands
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestSimpleHello(t *testing.T) {
-	conf := &helloConfiguration{
-		addressee: "World",
-	}
-	assert.Equal(t, doGreet(conf), "Hello World")
-}
-
-func TestComplexHello(t *testing.T) {
-	conf := &helloConfiguration{
-		addressee: "World",
-		shout:     true,
-		prefix:    "test: ",
-	}
-	assert.Equal(t, doGreet(conf), "TEST: HELLO WORLD")
+func TestRequestBodyGenerator(t *testing.T) {
+	var requestBody, _ = requestBodyGenerator("../utils/test.txt")
+	assert.NotEmpty(t, requestBody)
 }
