@@ -64,13 +64,10 @@ type SupportBundleUploadConfiguration struct {
 
 func UploadCmd(c *components.Context) error {
 	if len(c.Arguments) == 0 {
-		message := "Hello :) Now try adding an argument to the 'hi' command"
+		message := "No arguments specified, please specify a ticket number and files."
 		// You log messages using the following log levels.
-		log.Output(message)
-		log.Debug(message)
 		log.Info(message)
-		log.Warn(message)
-		log.Error(message)
+
 		return nil
 	}
 
