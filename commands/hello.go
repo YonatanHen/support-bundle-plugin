@@ -1,16 +1,18 @@
 package commands
 
 import (
+	"bytes"
 	"fmt"
-	"net/http"
+	"io"
 	"os"
+	"os/exec"
 	"strconv"
 
 	"github.com/jfrog/jfrog-cli-core/v2/plugins/components"
 	"github.com/jfrog/jfrog-client-go/utils/log"
 )
 
-func requestBodyGenerator(filePath string) (*os.File, error) {
+func requestBodyGenerator(filePath string) (*bytes.Buffer, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		log.Error("Error opening file:", err)
@@ -18,7 +20,15 @@ func requestBodyGenerator(filePath string) (*os.File, error) {
 	}
 	defer file.Close()
 
-	return file, nil
+	// Create a buffer to store the file contents
+	var requestBody bytes.Buffer
+	_, err = io.Copy(&requestBody, file)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return nil, err
+	}
+
+	return &requestBody, nil
 }
 
 func UploadCommand() components.Command {
@@ -74,27 +84,57 @@ func UploadCmd(c *components.Context) error {
 
 	conf.ticketNumber = ticketNumber
 
-	const uploadURL = "https://supportlogs.jfrog.com/logs/%s/"
+	uploadURL := "https://supportlogs.jfrog.com/logs/" + strconv.Itoa(conf.ticketNumber) + "/"
 
-	fmt.Println("Ticket Number:", conf.ticketNumber)
-	fmt.Println("File Paths:", conf.files)
+	// fmt.Println("Ticket Number:", conf.ticketNumber)
+	// fmt.Println("File Paths:", conf.files)
+	// fmt.Println(uploadURL)
 
 	// Genereate files to bytes
 	for i := 0; i < len(conf.files); i++ {
-		fmt.Println(requestBodyGenerator(conf.files[i]))
+		cmd := exec.Command("curl", "-T", conf.files[i], uploadURL)
 
-		requestBody, err := requestBodyGenerator(conf.files[i])
-		if err != nil {
-			log.Error(err)
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error running curl:", err)
 			return nil
 		}
 
-		// upload files
-		_, err = http.NewRequest("PUT", uploadURL, requestBody)
-		if err != nil {
-			log.Error(err)
+		// Check the exit status
+		if cmd.ProcessState.ExitCode() == 0 {
+			log.Debug("curl command completed successfully.")
+		} else {
+			log.Info("curl command failed with exit code", cmd.ProcessState.ExitCode())
 			return nil
 		}
+
+		log.Info("Uploaded file: " + conf.files[i] + ".")
+
+		// wg.Add(1)
+
+		// go func(file string) {
+		// requestBody, err := requestBodyGenerator(conf.files[i])
+		// if err != nil {
+		// 	log.Error(err)
+		// 	return nil
+		// }
+
+		// // upload files
+		// resp, err := http.Post(uploadURL, "application/json", requestBody)
+		// if err != nil {
+		// 	log.Error("Error", err)
+		// 	return nil
+		// }
+		// if resp.Status != "201" {
+		// 	log.Error("File not uploaded: ", resp.Status)
+		// 	return nil
+		// }
+
+		// // defer wg.Done()
+
+		// // }(conf.files[i])
 	}
 
 	return nil
