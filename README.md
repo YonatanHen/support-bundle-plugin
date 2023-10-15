@@ -24,7 +24,7 @@ Uninstalling a plugin
         - files - paths to the files to upload.
     - Example:
     ```
-  $ ./upload-support-bundle u 1 ./test2.txt ./test3.txt ./test4.txt 
+  $ jf support-bundle u 1 ./test2.txt ./test3.txt ./test4.txt 
   
     15:06:05 [🔵Info] Uploaded file: ./test2.txt.
     15:06:06 [🔵Info] Uploaded file: ./test3.txt.
