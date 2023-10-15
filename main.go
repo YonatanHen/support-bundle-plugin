@@ -14,7 +14,7 @@ func getApp() components.App {
 	app := components.App{}
 	app.Name = "support-bundle"
 	app.Description = "Uploading files and support bundles to JFrog Support SaaS instance (https://supportlogs.jfrog.com/logs/) using CLI command"
-	app.Version = "v0.0.1"
+	app.Version = "v1.0.0"
 	app.Commands = getCommands()
 	return app
 }
