@@ -35,8 +35,6 @@ Uninstalling a plugin
         15:06:06 [🔵Info] Uploaded file: ./test3.txt.
         15:06:06 [🔵Info] Uploaded file: ./test4.txt.
       ```
-
-    <img width="1137" alt="image" src="https://github.com/YonatanHen/upload-support-bundle-plugin/assets/57364867/9a74f3b8-6d12-4c68-bb89-8ffde0270749">
-
+        
 ## Release Notes
 The release notes are available [here](RELEASE.md).
