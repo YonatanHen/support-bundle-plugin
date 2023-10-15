@@ -1,4 +1,4 @@
-# support-bundle upload
+# support-bundle
 
 ## About this plugin
 This JFrog CLI plugin allows JFrog customers to easily upload [Support Bundles](https://jfrog.com/help/r/jfrog-platform-administration-documentation/support-zone) and files to the [JFrog Support SaaS instance](https://supportlogs.jfrog.com) using CLI command instead of cURL. 
