@@ -1,10 +1,7 @@
 package commands
 
 import (
-	"bytes"
 	"fmt"
-	"io"
-	"os"
 	"os/exec"
 	"strconv"
 
@@ -12,23 +9,8 @@ import (
 	"github.com/jfrog/jfrog-client-go/utils/log"
 )
 
-func requestBodyGenerator(filePath string) (*bytes.Buffer, error) {
-	file, err := os.Open(filePath)
-	if err != nil {
-		log.Error("Error opening file:", err)
-		return nil, err
-	}
-	defer file.Close()
-
-	// Create a buffer to store the file contents
-	var requestBody bytes.Buffer
-	_, err = io.Copy(&requestBody, file)
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return nil, err
-	}
-
-	return &requestBody, nil
+func CreateCmdCommand(filePath string, uploadURL string) *exec.Cmd {
+	return exec.Command("curl", "-T", filePath, uploadURL)
 }
 
 func UploadCommand() components.Command {
@@ -92,10 +74,8 @@ func UploadCmd(c *components.Context) error {
 
 	// Genereate files to bytes
 	for i := 0; i < len(conf.files); i++ {
-		cmd := exec.Command("curl", "-T", conf.files[i], uploadURL)
 
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+		cmd := CreateCmdCommand(conf.files[i], uploadURL)
 
 		if err := cmd.Run(); err != nil {
 			fmt.Println("Error running curl:", err)
