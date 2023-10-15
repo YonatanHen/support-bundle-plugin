@@ -1,41 +1,37 @@
-# hello-frog
+# support-bundle upload
 
 ## About this plugin
-This plugin is a template and a functioning example for a basic JFrog CLI plugin. 
-This README shows the expected structure of your plugin's README.
+This JFrog CLI plugin let JFrog customers upload [Support Bundles](https://jfrog.com/help/r/jfrog-platform-administration-documentation/support-zone) and files to the [JFrog Support SaaS instance](https://supportlogs.jfrog.com).
 
 ## Installation with JFrog CLI
 Installing the latest version:
 
-`$ jf plugin install hello-frog`
+`$ jf plugin install support-bundle`
 
-Installing a specific version:
+<!---Installing a specific version:`--->
 
-`$ jf plugin install hello-frog@version`
+<!--- j`$ jf plugin install hello-frog@version` --->
 
 Uninstalling a plugin
 
-`$ jf plugin uninstall hello-frog`
+`$ jf plugin uninstall support-bundle`
 
 ## Usage
 ### Commands
-* hello
+* upload
     - Arguments:
-        - addressee - The name of the person you would like to greet.
-    - Flags:
-        - shout: Makes output uppercase **[Default: false]**
+        - ticket number - The support ticket number in JFrog Portal.
+        - files - paths to the files to upload.
     - Example:
-    ```
-  $ jf hello-frog hello world --shout
-  
-  NEW GREETING: HELLO WORLD
-  ```
+        ```
+      $ jf support-bundle u 1 ./test2.txt ./test3.txt ./test4.txt 
+      
+        15:06:05 [🔵Info] Uploaded file: ./test2.txt.
+        15:06:06 [🔵Info] Uploaded file: ./test3.txt.
+        15:06:06 [🔵Info] Uploaded file: ./test4.txt.
+      ```
 
-### Environment variables
-* HELLO_FROG_GREET_PREFIX - Adds a prefix to every greet **[Default: New greeting: ]**
-
-## Additional info
-None.
+    <img width="1137" alt="image" src="https://github.com/YonatanHen/upload-support-bundle-plugin/assets/57364867/9a74f3b8-6d12-4c68-bb89-8ffde0270749">
 
 ## Release Notes
 The release notes are available [here](RELEASE.md).
