@@ -12,8 +12,8 @@ func main() {
 
 func getApp() components.App {
 	app := components.App{}
-	app.Name = "Upload Support Bundle"
-	app.Description = "Uploading a support bundle to JFrog SaaS instance (https://supportlogs.jfrog.com/logs/) using CLI command"
+	app.Name = "support-bundle"
+	app.Description = "Uploading files and support bundles to JFrog Support SaaS instance (https://supportlogs.jfrog.com/logs/) using CLI command"
 	app.Version = "v0.0.1"
 	app.Commands = getCommands()
 	return app
@@ -23,5 +23,3 @@ func getCommands() []components.Command {
 	return []components.Command{
 		commands.UploadCommand()}
 }
-
-//  curl -i -T {filename.ext} “https://supportlogs.jfrog.com/logs/<Case-Number>/”
