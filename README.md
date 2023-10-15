@@ -27,6 +27,7 @@ Uninstalling a plugin
       ```
      $ jf support-bundle u <ticket number> <files>
        ```
+  
         ```
       $ jf support-bundle u 1 ./test2.txt ./test3.txt ./test4.txt 
       
