@@ -29,7 +29,7 @@ func getUploadArguments() []components.Argument {
 		},
 		{
 			Name:        "files",
-			Description: "paths to the files to upload",
+			Description: "paths to the files to upload.",
 		},
 	}
 }
