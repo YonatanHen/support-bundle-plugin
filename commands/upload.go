@@ -41,7 +41,7 @@ type SupportBundleUploadConfiguration struct {
 
 func UploadCmd(c *components.Context) error {
 	if len(c.Arguments) == 0 {
-		message := "No arguments specified, please specify a ticket number and files."
+		message := "No arguments specified, please specify ticket number and files."
 		log.Info(message)
 
 		return nil
