@@ -7,7 +7,7 @@ This plugin also enables the uploading of multiple files using just one command.
 ## Installation with JFrog CLI
 Installing the latest version:
 
-`$ jf plugin install support-bundle`
+`$ jf plugin install upload-support-bundle`
 
 <!---Installing a specific version:`--->
 
@@ -15,7 +15,7 @@ Installing the latest version:
 
 Uninstalling a plugin
 
-`$ jf plugin uninstall support-bundle`
+`$ jf plugin uninstall upload-support-bundle`
 
 ## Usage
 ### Commands
