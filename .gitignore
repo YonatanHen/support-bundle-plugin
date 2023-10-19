@@ -10,7 +10,7 @@ utils/test*.txt
 
 # Template executable
 jfrog-cli-plugin-template
-upload-support-bundle
+support-bundle
 
 # Vim
 *~
